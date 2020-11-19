@@ -1,2 +1,3 @@
 # game_remember
-Created with CodeSandbox
+
+Try to play: [https://csb-v5u5h.netlify.app/] 

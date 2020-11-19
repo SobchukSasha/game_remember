@@ -7,8 +7,7 @@ import {
   setCards,
   selectFirstCard,
   selectSecondCard,
-  resetState,
-  winRound
+  resetState
 } from "./action";
 
 export function App() {
@@ -37,36 +36,41 @@ export function App() {
     dispatch(resetState());
   }
 
-  function rightRound() {
-    dispatch(winRound());
-  }
-
   return (
     <div className="container">
-      <h1>Try it!</h1>
+      {
+        state.cards.every(x => x.hidden === false)
+        ? <h1>YOU WIN!</h1>
+        : <h1>Try it!</h1>
+      }
+
       <div className="App">
-        {state.cards.map((elem, i) => {
-          return (
-            <div
-              key={Math.random().toString()}
-              className="card"
-              onClick={() => {
-                if (!elem.hidden) {
-                  return;
-                } else if (state.onCheck === 0 && elem.hidden === true) {
-                  chooseFirstCard(i, elem);
-                } else if (state.onCheck === 1) {
-                  chooseSecondCard(i, elem);
-                } else if (
-                  state.onCheck === 2 &&
-                  state.color1 !== state.color2
-                ) {
-                  wrongRound();
-                } else {
-                  rightRound();
+        {
+          state.cards.map((elem, i) => {
+            return (
+              <div
+                key={elem.id}
+                className="card"
+                onClick={
+                  (event) => {
+                    if (!elem.hidden) {
+                      return;
+                    } else if (
+                      (state.onCheck === 0 && elem.hidden === true)
+                      || state.color1 === state.color2
+                    ) {
+                      chooseFirstCard(i, elem);
+                    } else if (state.onCheck === 1) {
+                      chooseSecondCard(i, elem);
+                    } else if (
+                      state.onCheck === 2 &&
+                      state.color1 !== state.color2
+                    ) {
+                      wrongRound();
+                    }
+                  }
                 }
-              }}
-              style={{ backgroundColor: elem.hidden ? "black" : elem.color }}
+                style={{ backgroundColor: elem.hidden ? "black" : elem.color }}
             ></div>
           );
         })}

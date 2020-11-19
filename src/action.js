@@ -3,8 +3,7 @@ import {
   SELECT_FIRST_CARD,
   SET_CARDS,
   SELECT_SECOND_CARD,
-  LOSE_ROUND,
-  WIN_ROUND
+  LOSE_ROUND
 } from "./types";
 
 export function setCards() {
@@ -34,11 +33,5 @@ export function loseRound() {
 export function resetState() {
   return {
     type: RESET_STATE
-  };
-}
-
-export function winRound() {
-  return {
-    type: WIN_ROUND
   };
 }
